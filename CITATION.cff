@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated manuscript."
+title: "Zone 3 REBOA Guidance"
+type: software
+authors:
+  - family-names: "Zhao"
+    given-names: "Dongchu"
+  - family-names: "Lei"
+    given-names: "Dongniang"
+  - family-names: "Lai"
+    given-names: "Jiangyuan"
+  - family-names: "Zhang"
+    given-names: "Yi"
+  - family-names: "Liu"
+    given-names: "Chang"
+  - family-names: "Zhang"
+    given-names: "Yusheng"
+  - family-names: "Zhang"
+    given-names: "Lianyang"
+  - family-names: "Li"
+    given-names: "Yang"
+version: "1.0.0"
+repository-code: "https://github.com/DongchuZhao/zone3-reboa-guidance"
