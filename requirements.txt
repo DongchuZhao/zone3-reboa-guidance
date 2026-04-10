@@ -8,3 +8,6 @@ Pillow>=9.5
 scipy>=1.10
 scikit-image>=0.22
 tqdm>=4.66
+matplotlib>=3.7
+plotly>=5.0
+openpyxl>=3.1
