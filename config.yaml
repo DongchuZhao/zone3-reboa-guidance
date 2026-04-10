@@ -1,0 +1,110 @@
+# ========= General =========
+device: "auto"
+seed: 42
+
+# ========= Data I/O =========
+# Update the paths below to match your local data directory structure.
+# See README.md for the expected folder layout.
+data_root: "/path/to/your/data"
+projections_root: "/path/to/your/2d_projections"
+origin_subdir: "Origin data"
+models_subdir: "Models"
+tables_subdir: "Tables"
+ct_filename: null                # optional: specify CT filename; if null, the largest .nrrd is auto-selected
+surface_seg_filename: "Surface.seg.nrrd"
+segment_names: ["Table_1.csv","Table_2a.csv","Table_2b.csv","Table_3L.csv","Table_3R.csv","Table_4L.csv","Table_4R.csv"]
+
+demographics_path: "/path/to/your/demographics.xlsx"
+demographics_features: ["Sex","Age","Height","Weight","BMI"]
+
+mode: "train_both"               # train_teacher / train_student / train_both / eval
+
+# ========= Performance =========
+num_workers: 8
+pin_memory: true
+persistent_workers: true
+prefetch_factor: 4
+channels_last: true
+channels_last_3d: true
+cudnn_benchmark: true
+amp: true
+amp_dtype: "fp16"
+grad_accum_steps: 1
+
+# torch.compile (auto-fallback if Triton unavailable)
+compile: true
+compile_backend: "aot_eager"
+compile_mode: "max-autotune"
+
+# ========= Data / Task =========
+projection_channels: ["bin","thickness_mm","depth_mm","edt_mm"]
+train_ratio: 0.8
+seq_points: 64
+num_segments: 7
+batch_size: 16
+
+# ========= Training Hyperparameters =========
+epochs_teacher: 168
+epochs_student: 168
+lr_teacher: 1.0e-4
+lr_student: 1.0e-4
+
+# Learning rate schedule
+lr_factor: 0.5
+lr_patience: 5
+min_lr: 1.0e-6
+
+# Stability
+clip_grad_norm: 1.0
+
+# Target normalization
+target_normalization: "fixed"
+scale_coord_mm: 200.0
+scale_diam_mm: 20.0
+scale_len_mm: 200.0
+
+# ========= Distillation & Multi-Task Weights =========
+coord_w: 1.0
+diam_w:  1.0
+len_w:   1.0
+
+# Homoscedastic uncertainty weighting (Kendall & Gal)
+uncertainty_weight: true
+use_huber_loss: false
+
+# Knowledge distillation (normalized space)
+distill_temp: 1.0
+distill_weight_all: 0.3
+distill_weight_diam: 0.8
+
+# Geometric fidelity & diameter smoothness
+chamfer_w: 0.05
+diam_smooth_w1: 1.0e-3
+diam_smooth_w2: 1.0e-4
+
+# ========= Checkpoints & Early Stopping =========
+monitor_metric: "val_chamfer_mm"
+monitor_mode: "min"
+earlystop_patience: 24
+earlystop_delta: 0.001
+teacher_ckpt: "outputs/teacher_best.pth"
+student_ckpt: "outputs/student_best.pth"
+
+# ========= Evaluation =========
+eval_on_train: true
+dice_tolerance_mm: 5.0
+presence_len_thr_mm: 5.0
+qual_vis_k: 8
+voxel_mm: 2.0
+tube_margin_mm: 10.0
+
+# ========= Post-Processing (inference only) =========
+post_savgol: true
+sg_window: 7
+sg_poly: 3
+post_tv: false
+tv_lambda: 0.01
+tv_iters: 60
+
+# ========= Visualization =========
+viz3d_interactive: true
