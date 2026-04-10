@@ -1,4 +1,3 @@
-# zone3-reboa-guidance
 # Cross-Modal Knowledge Distillation for Fluoroscopy-Free Patient-Specific Zone 3 REBOA Guidance
 
 This repository contains the code for a cross-modal teacher-student framework for fluoroscopy-free, patient-specific Zone 3 REBOA guidance.
